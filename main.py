@@ -1,5 +1,5 @@
 import sys
-from Gui.gui import MainWindow, QApplication
+from Gui.Main_window import MainWindow, QApplication
 
 
 if __name__ == '__main__':
@@ -9,5 +9,5 @@ if __name__ == '__main__':
 
     window.show()
 
-    
+
     app.exec()
