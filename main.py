@@ -1,5 +1,7 @@
 import sys
-from Gui.Main_window import MainWindow, QApplication
+
+from PyQt6.QtWidgets import QApplication
+from Gui.Main_window import MainWindow
 
 
 if __name__ == '__main__':
@@ -8,6 +10,5 @@ if __name__ == '__main__':
     window = MainWindow(1280, 720)
 
     window.show()
-
 
     app.exec()
