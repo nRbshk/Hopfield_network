@@ -6,7 +6,7 @@ from Gui.Main_widget import MainWidget
 
 class MainWindow(QMainWindow):
 
-    def __init__(self, w: int = 1280, h: int = 720):
+    def __init__(self, w: int = 1280, h: int = 480):
         super().__init__()
 
         self.setWindowTitle("Hopfield network")

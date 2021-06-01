@@ -8,6 +8,8 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     window = MainWindow(1280, 720)
+    
+    window.move(0, 0)
 
     window.show()
 
