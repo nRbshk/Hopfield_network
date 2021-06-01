@@ -1,29 +1,4 @@
-from time import sleep
-from PyQt6.QtCore import QRunnable, pyqtSlot, QObject, pyqtSignal
 import numpy as np
-
-
-class WorkerSignals(QObject):
-
-    result = pyqtSignal(np.ndarray)
-
-
-class Worker(QRunnable):
-
-    def __init__(self, network, image_data: np.ndarray, iterations: int = 100, threshold: float = 0.5):
-        super().__init__()
-        self._network: Hopfield = network
-        self._image_data: np.ndarray = image_data
-        self.iterations: int = iterations
-        self.threshold: float = threshold
-        self.signals = WorkerSignals()
-
-    @pyqtSlot()
-    def run(self):
-        self._network.init_test_image_to_data(self._image_data)
-        result = self._network.recognize(self.iterations, self.threshold)
-        self.signals.result.emit(result)
-        
 
 
 class Hopfield:
@@ -54,33 +29,30 @@ class Hopfield:
         del vector_full, w, i_0
 
     def init_test_image_to_data(self, image: np.ndarray) -> None:
-        self.image = image
-        self.data = np.zeros((self.width, self.height), dtype=np.int8)
-        self.data = np.where(image > 0, 1, 0)
+        self.flatten_image = image.flatten()
 
-    def recognize(self, times=50, theta=0.5) -> np.ndarray:
-        self.end = False
-        flatten_image = self.image.flatten()
-
-        for _ in range(times):
+    def update(self, vector, threshold=0.5, synchronous = False) -> np.ndarray:
+        if synchronous:
+            return vector
+        else:
             update_number = np.random.randint(0, self._train_len)
-            u = np.dot(self.weights[update_number][:], flatten_image) - theta
+            u = np.dot(self.weights[update_number][:], vector) - threshold
             if u > 0:
-                flatten_image[update_number] = 1
+                vector[update_number] = 1
             else:
-                flatten_image[update_number] = -1
-            
+                vector[update_number] = -1
+            return vector
+
+    def recognize(self, iterations=50, threshold=0.5, synchronous=False) -> np.ndarray:
+        self.end = False
+
+        for _ in range(iterations):
+            self.flatten_image = self.update(self.flatten_image, threshold, synchronous)
+
             if self.end:
                 break
 
-
-
-                
-        new_data = np.zeros(flatten_image.shape)
-        new_data[flatten_image == 1] = 255
-        new_data[flatten_image == -1] = 0
-
-        return new_data.reshape((self.width, self.height))
+        return np.where(self.flatten_image == 1, 255, 0).reshape((self.width, self.height))
 
 
     def reset_weights(self):
