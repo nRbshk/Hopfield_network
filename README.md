@@ -11,3 +11,4 @@ Hopfield network with python for handwritten number recognition
 - [x] Add buttons for reset and recognition
 - [x] Describe Hopfield network
 - [x] Multithreading
+- [ ] Synchronous update
