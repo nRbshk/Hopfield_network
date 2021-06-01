@@ -1,9 +1,10 @@
 # Hopfield_network
 Hopfield network with python for handwritten number recognition
 
-
-# Features
- 
+# Simple start
+- enter to the root dir
+- python -m pip install -r req.txt
+- python main.py
 
 # ToDo List
 - [x] Init Gui with PyQt6
