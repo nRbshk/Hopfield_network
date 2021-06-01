@@ -34,6 +34,10 @@ class MainWidget(QtWidgets.QWidget):
         self.train_button.clicked.connect(lambda: self.train())
         self.recognize_button.clicked.connect(lambda: self.recognize())
 
+        self.clear_button.setToolTip("Clear canvas area.")
+        self.reset_network_button.setToolTip("Reset network weights.")
+        self.train_button.setToolTip("Train network with your handwritten symbol.")
+        self.recognize_button.setToolTip("Recognize your image.")
 
         # iteration text form
         self.form_iter = QtWidgets.QLineEdit(self)
