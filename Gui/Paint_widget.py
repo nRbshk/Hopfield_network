@@ -1,13 +1,7 @@
 from PyQt6 import QtWidgets
-from PyQt6.QtCore import QPoint, QPointF, Qt
-from PyQt6.QtGui import QColor, QPainter, QPen, QPixmap, QMouseEvent, QImage
+from PyQt6.QtCore import QPoint
+from PyQt6.QtGui import QColor, QPen, QPixmap, QMouseEvent, QImage
 from numpy import zeros
-
-import os
-
-train_dir = 'train_images'
-train_path = os.path.abspath(train_dir)
-#         self.pixmap.save(f"{train_path}/{last_id}.png", None, 100)
 
 
 
@@ -43,10 +37,10 @@ class PaintWidget(QtWidgets.QWidget):
         self.pixmap_width: int = w // self.grid_points
         self.pixmap_height: int = h // self.grid_points
 
-        for i in range(self.pixmap_width):
+        for i in range(self.grid_points):
             temp_labels: list[QtWidgets.QLabel] = []
             temp_pixmaps: list[QPixmap] = []
-            for j in range(self.pixmap_height):
+            for j in range(self.grid_points):
                 pixmap = QPixmap(self.pixmap_width, self.pixmap_height)
                 pixmap.fill(QColor(255, 255, 255, 255))
                 
@@ -69,13 +63,8 @@ class PaintWidget(QtWidgets.QWidget):
         if index_of_pixmap is None:
             return None
         pixmap = self.pixmaps[index_of_pixmap[0]][index_of_pixmap[1]]
+        pixmap.fill(QColor(0, 0, 0, 255))
         label = self.labels[index_of_pixmap[0]][index_of_pixmap[1]]
-        painter = QPainter(pixmap)
-        painter.setPen(self.pen)
-        x = x % self.pixmap_width
-        y = y % self.pixmap_height
-        painter.drawPoint(x, y)
-        painter.end()
         label.setPixmap(pixmap)
 
     def _get_index_of_pixmap_rectangle(self, x: int, y: int):
@@ -98,7 +87,7 @@ class PaintWidget(QtWidgets.QWidget):
             row = zeros((self.grid_points))
             for j in range(self.grid_points):
                 image = self.pixmaps[i][j].toImage().convertToFormat(QImage.Format.Format_Grayscale8)
-                row[j] = image.pixel(middle_point)
+                row[j] = 1 if QColor(image.pixel(middle_point)).red() == 0 else -1
             arr[i] = row
         return arr
 

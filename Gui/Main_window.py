@@ -1,12 +1,12 @@
-from PyQt6.QtCore import QPointF
-from PyQt6.QtWidgets import  QGridLayout, QMainWindow, QLabel
-from PyQt6.QtGui import QColor, QMouseEvent, QPainter, QPixmap, QPen
+
+from PyQt6.QtWidgets import  QMainWindow
+from PyQt6.QtGui import QCloseEvent
 
 from Gui.Main_widget import MainWidget
 
 class MainWindow(QMainWindow):
 
-    def __init__(self, w: int = 1280, h: int = 480):
+    def __init__(self, w: int = 1280, h: int = 720):
         super().__init__()
 
         self.setWindowTitle("Hopfield network")
@@ -18,4 +18,7 @@ class MainWindow(QMainWindow):
 
         self.main_widget.show()
 
+    def closeEvent(self, e: QCloseEvent) -> None:
+        self.main_widget.hopfield.end = True
+        e.accept()
 
