@@ -9,5 +9,5 @@ Hopfield network with python for handwritten number recognition
 - [x] Init Gui with PyQt6
 - [x] Add 1 painter fields to the main window
 - [x] Add buttons for reset and recognition
-- [x] Describe Hopfield network // works incorecct
+- [x] Describe Hopfield network
 - [x] Multithreading
