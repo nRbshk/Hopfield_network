@@ -2,7 +2,8 @@ from PyQt6 import QtWidgets
 from PyQt6.QtCore import QThreadPool
 from Gui.Paint_widget import PaintWidget
 
-from Hopfield_nn.Hopfield import Hopfield, Worker
+from Hopfield_nn.Hopfield import Hopfield
+from Hopfield_nn.Worker import Worker
 
 class MainWidget(QtWidgets.QWidget):
 
