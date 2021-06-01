@@ -31,7 +31,7 @@ class Hopfield:
     def init_test_image_to_data(self, image: np.ndarray) -> None:
         self.flatten_image = image.flatten()
 
-    def update(self, vector, threshold=0.5, synchronous = False) -> np.ndarray:
+    def update(self, vector, threshold=0.5, synchronous=False) -> np.ndarray:
         if synchronous:
             return vector
         else:
@@ -47,13 +47,13 @@ class Hopfield:
         self.end = False
 
         for _ in range(iterations):
-            self.flatten_image = self.update(self.flatten_image, threshold, synchronous)
+            self.flatten_image = self.update(
+                self.flatten_image, threshold, synchronous)
 
             if self.end:
                 break
 
         return np.where(self.flatten_image == 1, 255, 0).reshape((self.width, self.height))
-
 
     def reset_weights(self):
         self.weights = np.zeros((self.width * self.height, self.height * self.height), dtype=np.int8)
