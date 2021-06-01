@@ -1,4 +1,5 @@
 from PyQt6 import QtWidgets
+from PyQt6 import QtCore
 from PyQt6.QtCore import QThreadPool
 from Gui.Paint_widget import PaintWidget
 
@@ -57,10 +58,11 @@ class MainWidget(QtWidgets.QWidget):
         # layout
         layout = QtWidgets.QGridLayout(self)
 
-
-        layout.addWidget(self.user_canvas, 0, 0, 5, 1)
-        layout.addWidget(self.resulted_canvas, 0, 2, 5, 1)
-        layout.addLayout(vboxlayout, 0, 1)
+        layout.addWidget(QtWidgets.QLabel("Draw some symbol in the area below."), 0, 0, alignment=QtCore.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(QtWidgets.QLabel("This is an output for recognized image."), 0, 2, alignment=QtCore.Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(self.user_canvas, 1, 0, 5, 1)
+        layout.addWidget(self.resulted_canvas, 1, 2, 5, 1)
+        layout.addLayout(vboxlayout, 1, 1)
 
         
         self.setLayout(layout)
