@@ -33,7 +33,8 @@ class Hopfield:
 
     def update(self, vector, threshold=0.5, synchronous=False) -> np.ndarray:
         if synchronous:
-            return vector
+            u = np.dot(self.weights, vector) - threshold
+            return np.where(u > 0, 1, -1)
         else:
             update_number = np.random.randint(0, self._train_len)
             u = np.dot(self.weights[update_number][:], vector) - threshold

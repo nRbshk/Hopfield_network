@@ -44,6 +44,12 @@ class MainWidget(QtWidgets.QWidget):
         # threshold text form
         self.form_threshold = QtWidgets.QLineEdit(self)
 
+        # radio_byutton
+        self.sync_radio_button = QtWidgets.QRadioButton("Synchronous", self)
+        self.async_radio_button = QtWidgets.QRadioButton("Asynchronous", self)
+        self.async_radio_button.setChecked(True)
+        
+
         # buttons layout
         vboxlayout = QtWidgets.QVBoxLayout()
 
@@ -58,6 +64,8 @@ class MainWidget(QtWidgets.QWidget):
         vboxlayout.addWidget(self.form_iter)
         vboxlayout.addWidget(QtWidgets.QLabel("Threshold:"))
         vboxlayout.addWidget(self.form_threshold)
+        vboxlayout.addWidget(self.async_radio_button)
+        vboxlayout.addWidget(self.sync_radio_button)
 
         # layout
         layout = QtWidgets.QGridLayout(self)
@@ -89,8 +97,9 @@ class MainWidget(QtWidgets.QWidget):
         
         iterations = 100 if self.form_iter.text() == ""  else int(self.form_iter.text())
         threshold = 0.5 if self.form_threshold.text() == "" else float(self.form_threshold.text())
+        synchronous = True if self.sync_radio_button.isChecked() else False
 
-        worker = Worker(self.hopfield, self.user_canvas.get_pixmap_data(), iterations, threshold)
+        worker = Worker(self.hopfield, self.user_canvas.get_pixmap_data(), iterations, threshold, synchronous)
         worker.signals.result.connect(self.show_recognized_image)
 
         self.threadpool.start(worker)
