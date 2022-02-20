@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QRunnable, pyqtSlot, QObject, pyqtSignal
 
 from numpy import ndarray
-from hopfield_nn.hopfield import Hopfield
+from src.hopfield_nn.hopfield import Hopfield
 
 class WorkerSignals(QObject):
 

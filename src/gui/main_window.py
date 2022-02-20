@@ -2,7 +2,7 @@
 from PyQt6.QtWidgets import  QMainWindow
 from PyQt6.QtGui import QCloseEvent
 
-from gui.main_widget import MainWidget
+from src.gui.main_widget import MainWidget
 
 class MainWindow(QMainWindow):
 
